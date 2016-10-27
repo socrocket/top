@@ -67,15 +67,11 @@ def configure(self):
     except ConfigurationError as e:
             name    = "amba_socket"
             version = "1.0.15"
-        #try:
             self.dep_fetch(
                 name    = name,
                 version = version, 
-                tar     = "amba_socket-1.0.15.tgz",
-                tar_url = "amba_socket-1.0.15.tgz",
+                tar_url = "https://git.greensocs.com/chef/amba-kit/raw/master/files/default/amba_socket-1.0.15.tgz",
                 base    = name,
                 patch   = [os.path.join(self.path.abspath(), "core", "waf", "ambakit-2015-10-16-rmeyer.patch")]
             )
             find(self, self.dep_path(name, version).rstrip("-"+version))
-        #except:
-        #    self.fatal("failed\nYou have to register at Carbon Design Systems IP Exchange and download %s-%s.tgz via this URL https://portal.carbondesignsystems.com/Model/Carbon/TLM-2.0-AMBA. Please place the downloaded file in the socrocket src root directory")
