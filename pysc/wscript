@@ -10,6 +10,8 @@ REPOSITORY_TOOLS = [
   "virtualenv",
 #  "consolelog",
   "shell",
+  "bpython",
+  "gprof2dot"
 ]
 
 def build(self):
