@@ -38,7 +38,7 @@ def find(name):
        result.append(obj)
     else:
        obj = USIDelegate(name)
-       if not any(obj.get_if_tuple()):
+       if not any(obj.__usi_interfaces__()):
          return []
        return [obj]
 
@@ -158,7 +158,6 @@ class SCCallback(object):
         if debug:
             runnable = sc_callback_debug_wrapper(runnable, PromptStr(interpreter_name(), self.name, time_unit))
         innm = interpreter_name()
-        print('Interpreter', innm)
         if innm not in self.all_runnables:
             self.all_runnables[innm] = []
 
@@ -250,7 +249,7 @@ def execute_default_pause_handler(*k, **kw):
     else:
         print('No default pause handler defined')
 
-print('register default pause handler')
+#print('register default pause handler')
 on('pause_of_simulation')(execute_default_pause_handler)
 
 def onpause(*k, **kw):

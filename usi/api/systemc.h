@@ -13,7 +13,7 @@
 #define PYSC_API_SYSTEMC_H
 
 #include <Python.h>
-#include "core/common/sc_api.h"
+#include "core/base/sc_api.h"
 
 #ifdef SWIG
 namespace sc_core {
@@ -38,7 +38,7 @@ double delta_count();
 
 int set_verbosity(int verbosity);
 
-long get_curr_process_handle();
+size_t get_curr_process_handle();
 bool is_running();
 std::vector<sc_core::sc_object *> get_top_level_objects();
 

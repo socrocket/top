@@ -10,27 +10,12 @@
 ///            authors is strictly prohibited.
 /// @author Thomas Schuster
 ///
-#ifdef HAVE_USI
-#include "pysc/usi.h"
-#endif
-
+//
+#include "core/base/verbose.h"
+#include "core/base/systemc.h"
 #include "core/common/sr_param.h"
-#include "core/common/systemc.h"
-#include <string.h>
-#include <sys/time.h>
-#include <time.h>
-#include <string.h>
-#include <mcheck.h>
-#include "core/common/amba.h"
-#include "core/common/trapgen/debugger/GDBStub.hpp"
-#include <iostream>
-#include <vector>
-#include <cstring>
-#include <cstdlib>
-#include <stdexcept>
-
-#include "core/common/verbose.h"
-#include <boost/filesystem.hpp>
+#include "amba/amba.h"
+#include "pysc/usi.h"
 
 using namespace std;
 using namespace sc_core;
@@ -38,9 +23,9 @@ using namespace sc_core;
 int sc_main(int argc, char** argv) {
     sr_report_handler::handler = sr_report_handler::default_handler;
 
-    gs::ctr::GC_Core core;
-    gs::cnf::ConfigDatabase cnfdatabase("ConfigDatabase");
-    gs::cnf::ConfigPlugin configPlugin(&cnfdatabase);
+    //gs::ctr::GC_Core core;
+    //gs::cnf::ConfigDatabase cnfdatabase("ConfigDatabase");
+    //gs::cnf::ConfigPlugin configPlugin(&cnfdatabase);
 
     // Initialize Python
     USI_HAS_MODULE(systemc);

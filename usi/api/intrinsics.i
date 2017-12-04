@@ -19,8 +19,8 @@
 USI_REGISTER_MODULE(intrinsics)
 
 %{
-#include "core/common/sr_iss/intrinsics/intrinsicmanager.h"
-#include "core/common/sr_iss/intrinsics/platformintrinsic.h"
+#include "core/sr_iss/intrinsics/intrinsicmanager.h"
+#include "core/sr_iss/intrinsics/platformintrinsic.h"
 %}
 
 %inline %{
@@ -32,7 +32,8 @@ class IntrinsicInterface {
     IntrinsicInterface(IntrinsicManager<issueWidth> *manager): m_manager(manager) {}
 #endif
     unsigned int get_exit_value() {
-      return m_manager->processorInstance.getExitValue();
+      return m_manager->processorInstance.get_exit_value();
+      return 0;
     }
     bool register_intrinsic(issueWidth addr, sc_core::sc_object *obj) {
       PlatformIntrinsic<issueWidth> *instance = dynamic_cast<PlatformIntrinsic<issueWidth> *>(obj);
@@ -50,7 +51,7 @@ class IntrinsicInterface {
     IntrinsicManager<issueWidth> *m_manager;
 };
 %}
-%include "core/common/sr_iss/intrinsics/platformintrinsic.h"
+%include "core/sr_iss/intrinsics/platformintrinsic.h"
 %template (IntrinsicInterface32) IntrinsicInterface<unsigned int>;
 %template (PlatformIntrinsic32) PlatformIntrinsic<unsigned int>;
 %{
