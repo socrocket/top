@@ -3,48 +3,106 @@
     "pull": {
       "remote_branch": "waf-1.9.1",
       "remote_url": "https://github.com/waf-project/waf.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/waf.git"
+    }
+  },
+  "amba": {
+    "pull": {
+      "remote_branch": "master",
+      "remote_url": "https://github.com/socrocket/amba.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/amba.git"
     }
   },
   "core": {
     "pull": {
-      "remote_branch": "master",
+      "remote_branch": "core",
       "remote_url": "https://github.com/socrocket/core.git"
+    },
+    "push": {
+      "remote_branch": "core",
+      "remote_url": "git@github.com:socrocket/core.git"
     }
   },
   "core/sr_param": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/sr_param.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/sr_param.git"
     }
   },
   "core/sr_register": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/sr_register.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/sr_register.git"
     }
   },
   "core/sr_registry": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/sr_registry.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/sr_registry.git"
     }
   },
   "core/sr_report": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/sr_report.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/sr_report.git"
     }
   },
   "core/sr_signal": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/sr_signal.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/sr_signal.git"
+    }
+  },
+  "core/trapgen": {
+    "pull": {
+      "remote_branch": "runtime",
+      "remote_url": "../trap-gen2"
+    }
+  },
+  "gaisler": {
+    "pull": {
+      "remote_branch": "master",
+      "remote_url": "https://github.com/socrocket/gaisler.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/gaisler.git"
     }
   },
   "pysc": {
     "pull": {
       "remote_branch": "master",
       "remote_url": "https://github.com/socrocket/pysc.git"
+    },
+    "push": {
+      "remote_branch": "master",
+      "remote_url": "git@github.com:socrocket/pysc.git"
     }
   }
 }
