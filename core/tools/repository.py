@@ -75,7 +75,7 @@ def update_repositories(top_dir, repos):
         if repository == "core":
             continue
         if update_check_for_uncommited(top_dir, repository):
-            print("You have uncommited changes in '{}'. Please commit your changes befor executing '{}' again.".format(repository, ' '.join(sys.argv)))
+            print("you have uncommited changes in '{}'. please commit your changes befor executing '{}' again.".format(repository, ' '.join(sys.argv)))
             sys.exit(1)
     for repository in repos.keys():
         if repository == "core":
@@ -200,10 +200,20 @@ def add_repo(cmd, params):
     elif len(params) == 1:
         directory = None
         repository = params[0]
+        branch = "master"
 
     elif len(params) == 2:
         directory = params[0]
         repository = params[1]
+        branch = "master"
+        if os.path.isdir(directory):
+            print("Target directory does already exist '%s'" % directory)
+            return
+
+    elif len(params) == 3:
+        directory = params[0]
+        repository = params[1]
+        branch = params[2]
         if os.path.isdir(directory):
             print("Target directory does already exist '%s'" % directory)
             return
@@ -235,9 +245,9 @@ def add_repo(cmd, params):
     if os.path.isdir(directory):
         print("Target directory does already exist '%s'" % directory)
         return
-    subprocess.call(["git", "subtree", "--prefix", directory, tempdir, 'master'])
-    REPOS[directory] = {"pull": { "remote_url": repository, "remote_branch": 'master'}}
-    shutils.rmtree(tempdir)
+    subprocess.call(["git", "subtree", "add", "--prefix", directory, tempdir, branch])
+    REPOS[directory] = {"pull": { "remote_url": repository, "remote_branch": branch}}
+    shutil.rmtree(tempdir)
 
     # Adding repo to repository file
     for dep_params in vals.get("deps", {}).items():
@@ -250,6 +260,28 @@ def init_repo(cmd, params):
         print("  Adding dependency %s" % dep_params[0])
         add_repo("add", dep_params)
     
+def pull_repo(cmd, params):
+    for directory in params:
+        remote_url = None
+        remote_branch = None
+        if directory in REPOS:
+            remote_url = REPOS[directory]['pull']['remote_url']
+            remote_branch = REPOS[directory]['pull']['remote_branch']
+            subprocess.call(["git", "subtree", "pull", "--prefix", directory, remote_url, remote_branch, '--squash'])
+
+def push_repo(cmd, params):
+    for directory in params:
+        remote_url = None
+        remote_branch = None
+        if directory in REPOS:
+            if "push" in REPOS[directory]:
+                remote_url = REPOS[directory]['push']['remote_url']
+                remote_branch = REPOS[directory]['push']['remote_branch']
+            else:
+                remote_url = REPOS[directory]['pull']['remote_url']
+                remote_branch = REPOS[directory]['pull']['remote_branch']
+            subprocess.call(["git", "subtree", "push", "--prefix", directory, remote_url, remote_branch])
+
 def del_repo(cmd, params):
     import shutil
     for directory in params:
@@ -262,6 +294,8 @@ def del_repo(cmd, params):
 def show_repo(cmd, params):
     global REPOS
     for directory, repository in REPOS.items():
+        if directory == '.waf':
+            continue
         vals = get_repo_vals(directory)
         print("%s <= %s:%s" % (directory, repository['pull']['remote_url'], repository['pull']['remote_branch']))
 
@@ -299,8 +333,8 @@ def execute(top_dir):
     os.chdir(top_dir)
     CMDS = {
         'init': init_repo,
-        'pull': git_cmd, 
-        'push': git_cmd, 
+        'pull': pull_repo,
+        'push': push_repo,
         'add': add_repo, 
         'del': del_repo, 
         'show': show_repo,
